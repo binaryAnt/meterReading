@@ -1,27 +1,179 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="13.3">
-  <zoom_level>10</zoom_level>
+  <zoom_level>8</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>600</x>
-      <y>120</y>
-      <w>100</w>
-      <h>30</h>
+      <x>32</x>
+      <y>0</y>
+      <w>304</w>
+      <h>200</h>
     </coordinates>
-    <panel_attributes>SimpleClass</panel_attributes>
+    <panel_attributes>ConfigurationDatabase
+--
+-dbDriver: String
+-dbURL: String
+-dbName: String
+-dbUsername: String
+-dbPassword: String
+--
++ConfigurationDatabase(dbDriver: String, 
+dbURL: String, dbName: String, dbUsername: String, 
+dbPassword: String)
++getDbDriver(): String
++getDbURL(): String
++getDbName(): String
++getDbUsername(): String
++getDbPassword(): String</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>580</x>
-      <y>60</y>
-      <w>150</w>
-      <h>30</h>
+      <x>352</x>
+      <y>0</y>
+      <w>280</w>
+      <h>96</h>
     </coordinates>
-    <panel_attributes>/MeterReadingSelector/
+    <panel_attributes>/DBCOnfigurationLoader/
+--
+
+--
++getConfigurationDatabase(): ConfigurationDatabase
 </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>368</x>
+      <y>144</y>
+      <w>248</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>DBCOnfigurationLoaderFile
+--
+-confFile: File
+--
+-getDBConfigurationAsJsonFromFile(): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>672</x>
+      <y>88</y>
+      <w>328</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>Meter
+--
++id: int
++meterTypeId: int
++name: String
++residenceId: int
+--
++Meter(id: int, meterTypeId: int, name: String, residenceId: int)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>672</x>
+      <y>240</y>
+      <w>344</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>MeterReadingData
+--
++meterId: int
++date: Date
++value: BigDecimal
+--
++MeterReadingData(meterId: int, date: Date, value: BigDecimal)
++equals(meterReadingData: MeterReadingData): boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>32</x>
+      <y>376</y>
+      <w>440</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>/MeterReadingPersistant/
+--
+
+--
++getAllMeterReadingData(): List&lt;MeterReadingData&gt;
++getMeterReadingDataByMeterId(meterId: int): List&lt;MeterReadingData&gt;
++getMeterReadingDataByMeterTypeId(meterTypeId: int): List&lt;MeterReadingData&gt;
++insertMeterReading(meterData: MeterReadingData): int
++deleteMeterReading(meterReadingId: int)
++getMetersByMeterTypeId(meterTypeId: int): List&lt;Meter&gt;
++getAllMeterTypes(): List&lt;MeterType&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>32</x>
+      <y>584</y>
+      <w>432</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>MeterReadingPersistantMySql
+--
+-dbConf: ConfigurationDatabase
+-conn: Connection
+--
++MeterReadingPersistantMySql(dbConf ConfigurationDatabase)
+-getConnection(): Connection
+-getMeterDataByWhereClause(whereClause: String): List&lt;MeterReadingData&gt;
+-getMeterDataWithoutWhereClause(): List&lt;MeterReadingData&gt;
+-convertResultSetToMeterReadingData(resultSet: ResultSet): MeterReadingData
+-convertResultSetToMeter(resultSet ResultSet): Meter</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>488</x>
+      <y>88</y>
+      <w>24</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>240</x>
+      <y>504</y>
+      <w>24</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>672</x>
+      <y>0</y>
+      <w>320</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>MeterType
+--
++id: int
++name: String
+--
++MeterType(id: int, name: String)</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
